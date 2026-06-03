@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="page">
+        <section class="panel">
+            <div class="top-nav">
+                <a href="/static">Новая заявка</a>
+                <a href="/leads">Все заявки</a>
+                <a href="/dashboard">Дашборд</a>
+                <a href="/about">О проекте</a>
+            </div>
+
+            <p class="label">Описание MVP</p>
+            <h1>О проекте</h1>
+
+            <div class="mode-badge">
+                Режим агента: {{ ai_mode }}
+            </div>
+
+            <section class="about-section">
+                <h2>Что такое LeadMind AI</h2>
+                <p>
+                    LeadMind AI — это AI CRM-агент для малого бизнеса. Он помогает
+                    обрабатывать входящие заявки, определять горячесть клиента,
+                    сохранять данные в CRM и показывать аналитику руководителю.
+                </p>
+            </section>
+
+            <section class="about-section">
+                <h2>Бизнес-проблема</h2>
+                <p>
+                    Компании часто теряют клиентов из-за долгих ответов, хаотичной
+                    обработки заявок и отсутствия понятной аналитики. Менеджер может
+                    не сразу понять, какая заявка горячая и какой следующий шаг нужно сделать.
+                </p>
+            </section>
+
+            <section class="about-section">
+                <h2>Как работает система</h2>
+                <ol>
+                    <li>Менеджер вводит сообщение клиента.</li>
+                    <li>Агент анализирует текст заявки.</li>
+                    <li>Система определяет услугу, город, площадь, сроки и бюджет.</li>
+                    <li>Заявка сохраняется в PostgreSQL.</li>
+                    <li>Менеджер меняет CRM-статус заявки.</li>
+                    <li>Руководитель видит аналитику на дашборде.</li>
+                </ol>
+            </section>
+
+            <section class="about-section">
+                <h2>Технологии</h2>
+                <div class="tech-grid">
+                    <span>Python</span>
+                    <span>FastAPI</span>
+                    <span>Jinja2</span>
+                    <span>SQLAlchemy</span>
+                    <span>PostgreSQL</span>
+                    <span>OpenAI-ready</span>
+                    <span>HTML</span>
+                    <span>CSS</span>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h2>Коммерческая ценность</h2>
+                <p>
+                    Проект можно адаптировать под ремонтные компании, клиники,
+                    автосервисы, юридические услуги, онлайн-школы и B2B-компании.
+                    Он может продаваться как внутренняя CRM-система, AI-помощник
+                    менеджера или кастомный SaaS-инструмент.
+                </p>
+            </section>
+
+            <section class="about-section">
+                <h2>Что можно добавить позже</h2>
+                <ul>
+                    <li>Настоящий OpenAI API</li>
+                    <li>Telegram-бот</li>
+                    <li>WhatsApp-интеграция</li>
+                    <li>Авторизация и роли сотрудников</li>
+                    <li>Экспорт заявок в Excel</li>
+                    <li>Интеграция с AmoCRM или Bitrix24</li>
+                </ul>
+            </section>
+        </section>
+    </main>
+</body>
+</html>

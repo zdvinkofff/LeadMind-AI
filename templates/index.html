@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <main class="page">
+        <section class="panel">
+            <div class="top-nav">
+                <a href="/">Новая заявка</a>
+                <a href="/leads">Все заявки</a>
+                <a href="/dashboard">Дашборд</a>
+            </div>
+
+            <p class="label">AI-агент для бизнеса</p>
+            <h1>LeadMind AI</h1>
+
+            <p class="description">
+                Система для анализа входящих заявок, оценки горячести клиента
+                и подготовки ответа менеджеру.
+            </p>
+
+            <div class="mode-badge">
+                Режим агента: {{ ai_mode }}
+            </div>
+
+            <form class="lead-form" action="/analyze" method="post">
+                <label for="message">Сообщение клиента</label>
+
+                <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Например: хочу ремонт квартиры 60 м² в Москве, начать через месяц"
+                >{{ message }}</textarea>
+
+                <button type="submit">Проанализировать заявку</button>
+            </form>
+
+            {% if analysis %}
+                <section class="result">
+                    <h2>Результат анализа</h2>
+
+                    <div class="result-grid">
+                        <div>
+                            <span>Тип услуги</span>
+                            <strong>{{ analysis.service_type }}</strong>
+                        </div>
+
+                        <div>
+                            <span>Площадь</span>
+                            <strong>{{ analysis.area }}</strong>
+                        </div>
+
+                        <div>
+                            <span>Локация</span>
+                            <strong>{{ analysis.location }}</strong>
+                        </div>
+
+                        <div>
+                            <span>Сроки</span>
+                            <strong>{{ analysis.timeline }}</strong>
+                        </div>
+
+                        <div>
+                            <span>Бюджет</span>
+                            <strong>{{ analysis.budget }}</strong>
+                        </div>
+
+                        <div>
+                            <span>Оценка заявки</span>
+                            <strong>{{ analysis.lead_score }}</strong>
+                        </div>
+                    </div>
+
+                    <div class="result-block">
+                        <h3>Резюме</h3>
+                        <p>{{ analysis.summary }}</p>
+                    </div>
+
+                    <div class="result-block">
+                        <h3>Недостающие данные</h3>
+
+                        {% if analysis.missing_data %}
+                            <ul>
+                                {% for item in analysis.missing_data %}
+                                    <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>Все ключевые данные указаны.</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="result-block">
+                        <h3>Следующий шаг для менеджера</h3>
+                        <p>{{ analysis.next_step }}</p>
+                    </div>
+
+                    <div class="result-block">
+                        <h3>Ответ клиенту</h3>
+                        <p>{{ analysis.client_reply }}</p>
+                    </div>
+                </section>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

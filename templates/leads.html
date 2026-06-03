@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <main class="page">
+        <section class="panel">
+            <div class="top-nav">
+                <a href="/">Новая заявка</a>
+                <a href="/leads">Все заявки</a>
+                <a href="/dashboard">Дашборд</a>
+            </div>
+
+            <p class="label">CRM-таблица</p>
+            <h1>Все заявки</h1>
+
+            <form class="filters" action="/leads" method="get">
+                <div class="filter-field">
+                    <label for="q">Поиск</label>
+                    <input
+                        id="q"
+                        type="text"
+                        name="q"
+                        value="{{ current_q }}"
+                        placeholder="Текст, город, услуга, бюджет"
+                    >
+                </div>
+
+                <div class="filter-field">
+                    <label for="status">Статус</label>
+                    <select id="status" name="status">
+                        <option value="">Все статусы</option>
+                        {% for status in statuses %}
+                            <option value="{{ status }}" {% if current_status == status %}selected{% endif %}>
+                                {{ status }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <label for="score">Горячесть</label>
+                    <select id="score" name="score">
+                        <option value="">Любая горячесть</option>
+                        {% for score in scores %}
+                            <option value="{{ score }}" {% if current_score == score %}selected{% endif %}>
+                                {{ score }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-actions">
+                    <button type="submit">Применить</button>
+                    <a href="/leads">Сбросить</a>
+                </div>
+            </form>
+
+            <p class="results-count">
+                Найдено заявок: {{ total_found }}
+            </p>
+
+            {% if leads %}
+                <div class="lead-list">
+                    {% for lead in leads %}
+                        <article class="lead-card">
+                            <div class="lead-card-header">
+                                <strong>Заявка #{{ lead.id }}</strong>
+
+                                <div class="lead-tags">
+                                    <span>{{ lead.lead_score }}</span>
+                                    <span>{{ lead.status }}</span>
+                                </div>
+                            </div>
+
+                            <p><b>Сообщение:</b> {{ lead.original_message }}</p>
+                            <p><b>Тип услуги:</b> {{ lead.service_type }}</p>
+                            <p><b>Площадь:</b> {{ lead.area }}</p>
+                            <p><b>Локация:</b> {{ lead.location }}</p>
+                            <p><b>Сроки:</b> {{ lead.timeline }}</p>
+                            <p><b>Бюджет:</b> {{ lead.budget }}</p>
+                            <p><b>Следующий шаг:</b> {{ lead.next_step }}</p>
+
+                            <form class="status-form" action="/leads/{{ lead.id }}/status" method="post">
+                                {% for status in statuses %}
+                                    <button
+                                        type="submit"
+                                        name="status"
+                                        value="{{ status }}"
+                                        class="status-button {% if lead.status == status %}active{% endif %}"
+                                    >
+                                        {{ status }}
+                                    </button>
+                                {% endfor %}
+                            </form>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="description">Заявки не найдены. Измени фильтры или добавь новую заявку.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

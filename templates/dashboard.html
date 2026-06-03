@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <main class="page">
+        <section class="panel">
+            <div class="top-nav">
+                <a href="/">Новая заявка</a>
+                <a href="/leads">Все заявки</a>
+                <a href="/dashboard">Дашборд</a>
+            </div>
+
+            <p class="label">Аналитика для бизнеса</p>
+            <h1>Дашборд</h1>
+
+            <div class="stats-grid">
+                <div class="stat-card"><span>Всего заявок</span><strong>{{ total_leads }}</strong></div>
+                <div class="stat-card"><span>Горячие</span><strong>{{ hot_leads }}</strong></div>
+                <div class="stat-card"><span>Теплые</span><strong>{{ warm_leads }}</strong></div>
+                <div class="stat-card"><span>Холодные</span><strong>{{ cold_leads }}</strong></div>
+                <div class="stat-card"><span>Новые</span><strong>{{ new_leads }}</strong></div>
+                <div class="stat-card"><span>В работе</span><strong>{{ in_progress_leads }}</strong></div>
+                <div class="stat-card"><span>Закрытые</span><strong>{{ closed_leads }}</strong></div>
+            </div>
+
+            <section class="result-block">
+                <h3>Последние заявки</h3>
+
+                {% if recent_leads %}
+                    <div class="compact-list">
+                        {% for lead in recent_leads %}
+                            <div class="compact-row">
+                                <div>
+                                    <strong>#{{ lead.id }} — {{ lead.service_type }}</strong>
+                                    <p>{{ lead.original_message }}</p>
+                                </div>
+                                <span>{{ lead.status }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Пока заявок нет.</p>
+                {% endif %}
+            </section>
+        </section>
+    </main>
+</body>
+</html>
